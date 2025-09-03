@@ -1,7 +1,7 @@
 package dao;
 
 import domain.Cliente;
-import java.util.Collection;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,24 +29,13 @@ public class ClienteMapDAO implements IClienteDAO {
 
     @Override
     public void alterar(Cliente cliente) {
-        Cliente existente = this.map.get(cliente.getCpf());
-        if (existente != null) {
-            existente.setNome(cliente.getNome());
-            existente.setTelefone(cliente.getTelefone());
-            existente.setNumero(cliente.getNumero());
-            existente.setEndereco(cliente.getEndereco());
-            existente.setCidade(cliente.getCidade());
-            existente.setEstado(cliente.getEstado());
+        if (this.map.containsKey(cliente.getCpf())) {
+            this.map.put(cliente.getCpf(), cliente);
         }
     }
 
     @Override
     public Cliente consultar(Long cpf) {
         return this.map.get(cpf);
-    }
-
-    @Override
-    public Collection<Cliente> buscarTodos() {
-        return this.map.values();
     }
 }
